@@ -6,7 +6,11 @@ This project uses the open source model llama-3.3-70b-versatile from the groq an
 
 ## 2. Feature
 
-It takes input from the user in Fast Api and writes response to it
+- Chat with LLM using natural language
+- Adjustable temperature (0.1-2.0) for response creativity
+- Returns both response and temperature used
+- Error handling for API failures
+- FastAPI automatic documentation (Swagger UI)
 
 ## 3. Tech Stack
 
@@ -24,6 +28,8 @@ go to groq cloud and create your own API key
 create .env file and add your api key there ex. GROQ_API_KEY=<Your Api Key Here>
 
 `uvicorn main:app --reload` to run the server and autoreaload when you do some changes
+
+Open browser and go to `http://localhost:8000/docs` to test the API
 
 ## 5. API Endpoint
 
@@ -48,8 +54,19 @@ Send a message to the LLM and get a response.
   "temperature_used": 0.7
 }
 ```
+## 6 Requirements
+```
+fastapi
+uvicorn
+python-dotenv
+groq
+```
 
-## 6. Learning
+## 7. Learning
 
-I learned how to use open source models and create chat bot that runs on this model for free using the API key i learned the .env operations i learned the fast api how to integrate groq api call inside it 
+- How to integrate open-source LLM models using Groq API
+- FastAPI endpoint creation and request/response handling
+- Environment variable management with python-dotenv
+- Pydantic models for request/response validation
+- Error handling in API development
 
