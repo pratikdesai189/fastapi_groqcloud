@@ -20,9 +20,14 @@ It takes input from the user in Fast Api and writes response to it
 clone the repository in local
 `pip install -r requirement.txt`
 
+go to groq cloud and create your own API key
+create .env file and add your api key there ex. GROQ_API_KEY=<Your Api Key Here>
+
+`uvicorn main:app --reload` to run the server and autoreaload when you do some changes
+
 ## 5. API Endpoint
 
-/chat 
+/chat : this accepts string input
 
 ### POST /chat
 
