@@ -6,7 +6,19 @@ from pydantic import BaseModel
 app = FastAPI()
 
 from groq import Groq
-load_dotenv()
+
+try:
+    load_dotenv()
+except Exception as e:
+    print(f"Error loading .env file: {e}")
+
+# Validate API key at startup
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise ValueError(
+        "GROQ_API_KEY environment variable is not set. "
+        "Please set it in Railway dashboard or .env file"
+    )
 
 class ChatRequest(BaseModel):
     message: str
@@ -27,7 +39,7 @@ def read_root():
 def read_item(request: ChatRequest):
     try:
         client = Groq(
-        api_key=os.environ.get("GROQ_API_KEY"),
+        api_key=GROQ_API_KEY,
     )
 
         chat_completion = client.chat.completions.create(
@@ -37,7 +49,7 @@ def read_item(request: ChatRequest):
                     "content": request.message,
                 }
             ],
-            model="llama-3.3-70b-versatile",
+            model="meta-llama/llama-4-scout-17b-16e-instruct",
             temperature=request.temperature
         )
 
@@ -47,3 +59,15 @@ def read_item(request: ChatRequest):
         )
     except Exception as e:
         return {"error": str(e)}
+    
+if __name__ == "__main__":
+    import uvicorn
+    
+    # Step 1: Get port from environment
+    port = os.getenv("PORT", "8000")
+    
+    # Step 2: YOUR TASK - Convert port to integer
+    # Hint: What function converts strings to integers?
+    
+    # Step 3: Start the server
+    uvicorn.run("main:app", host="0.0.0.0", port=int(port))  # Fill in the ???
